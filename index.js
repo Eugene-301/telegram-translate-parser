@@ -37,14 +37,14 @@ const PHONE_NUMBER = process.env.PHONE_NUMBER;
     const translateLink = await wrap.$(".tr-value-link");
     await translateLink.click();
 
-    const formField = await wrap.waitForSelector(".add-suggestion-form");
+    const translateForm = await wrap.waitForSelector(".add-suggestion-form");
 
-    formField.$eval(".key-add-suggestion-field", async (field) => {
+    translateForm.$eval(".key-add-suggestion-field", async (field) => {
       field.textContent = await window.formatTranslate(field.textContent);
     });
 
-    await new Promise((resolve) => {
-      setTimeout(resolve, 1000);
-    });
+    await translateForm.waitForSelector(".form-submit-btn");
+    const submitTranslateButton = await translateForm.$(".form-submit-btn");
+    await submitTranslateButton.click();
   }
 })();
