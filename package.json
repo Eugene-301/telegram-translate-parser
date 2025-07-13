@@ -1,0 +1,23 @@
+{
+  "name": "telegramtranslationmacros",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/Eugene-301/telegram-translate-parser#readme",
+  "bugs": {
+    "url": "https://github.com/Eugene-301/telegram-translate-parser/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Eugene-301/telegram-translate-parser.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "puppeteer-core": "^24.12.1"
+  }
+}
