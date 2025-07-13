@@ -1,4 +1,5 @@
 import puppeteer from "puppeteer-core";
+import formatter from "./formatter.js";
 import "dotenv/config";
 
 const LANG_NAME = process.env.LANG_NAME;
@@ -28,6 +29,8 @@ const PHONE_NUMBER = process.env.PHONE_NUMBER;
     `https://translations.telegram.org/${LANG_NAME}/untranslated/`
   );
 
+  await page.exposeFunction("formatTranslate", formatter);
+
   const translateWraps = await page.$$(".tr-key-row-wrap");
 
   for (const wrap of translateWraps) {
@@ -36,15 +39,12 @@ const PHONE_NUMBER = process.env.PHONE_NUMBER;
 
     const formField = await wrap.waitForSelector(".add-suggestion-form");
 
-    formField.$eval(".key-add-suggestion-field", (field, _value) => {
-      const previousFieldText = field.textContent;
-      const formatedText = `♡${previousFieldText}♡`;
-
-      field.textContent = formatedText;
+    formField.$eval(".key-add-suggestion-field", async (field) => {
+      field.textContent = await window.formatTranslate(field.textContent);
     });
 
     await new Promise((resolve) => {
-      setTimeout(resolve, 100);
+      setTimeout(resolve, 1000);
     });
   }
 })();
